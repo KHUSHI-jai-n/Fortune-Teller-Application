@@ -2,8 +2,6 @@
 
 Fortune Teller is a simple web application that answers your questions with one of three possible responses: **Yes**, **No**, or **Maybe**. The app is hosted as a static website on Amazon S3 and integrates with an HTTP API built using AWS API Gateway and Lambda.
 
----
-
 ## Features
 
 - **Interactive Frontend**: Built using HTML, CSS, and JavaScript.
@@ -32,21 +30,3 @@ Fortune Teller is a simple web application that answers your questions with one 
 
 ### **Hosting**
 - **Amazon S3**: Hosts the static files for the web application.
-
-## Deployment
-
-### Backend
-1. **Lambda Function**:
-   - The Lambda function is triggered by an HTTP API created in API Gateway.
-  
-2. **API Gateway**:
-   - Configured to invoke the Lambda function.
-   - CORS enabled to allow communication with the frontend.
-
-### Frontend
-1. **S3 Bucket**:
-   - Static website hosting enabled.
-   - Index document set to `fortuneTeller.html`.
-
-2. **Bucket Policy**:
-   - Public read access granted for the hosted files.
