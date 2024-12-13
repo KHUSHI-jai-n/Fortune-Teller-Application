@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortune Teller</title>
+  <style>
+    body {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: rgb(216, 199, 233);
+      background-image: url("brandon-siu-nI7knd5sQfo-unsplash.jpg");
+      background-size: cover;
+    }
+
+    h1 {
+      font-size: 2.1em;
+      margin-top: 90px;
+      text-align: center;
+      color: white;
+      text-shadow: 0 0 5px #fff,
+        0 0 10px purple,
+        0 0 20px purple,
+        0 0 30px purple,
+        0 0 40px plum,
+        0 0 55px plum,
+        0 0 70px plum;
+    }
+
+    p {
+      font-size: 1.1em;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-left: 2px;
+      font-size: 16px;
+      background-color: rgb(94, 62, 158);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: rgb(57, 30, 110);
+      transition: 0.3s ease-in-out;
+    }
+
+    #response {
+      margin-top: 20px;
+      font-size: 20px;
+      color: black;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Fortune Teller</h1>
+  <p>Ask your question and receive a prediction!</p>
+  <input type="text" id="questionInput" placeholder="Type your question here" />
+  <button onclick="askFortune()">Ask</button>
+  <div id="response"></div>
+
+  <script>
+    async function askFortune() {
+      const question = document.getElementById("questionInput").value.trim();
+      const url = `https://w2hmiir6s6.execute-api.us-east-1.amazonaws.com/dev/fortuneTeller?question="${encodeURIComponent(question)}"`;
+
+      try {
+        if (!question) {
+          document.getElementById('response').innerText = "Please enter a question!";
+          return;
+        }
+        const response = await fetch(url, { mode: "cors" });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json(); // Parses JSON
+        console.log("Raw response:", data);
+        document.getElementById("response").innerText = `Fortune says: ${data}`;
+      } catch (error) {
+        console.error("Error fetching the fortune:", error);
+        document.getElementById("response").innerText = "Error fetching the fortune. Please try again.";
+      }
+    };
+  </script>
+</body>
+
+</html>
